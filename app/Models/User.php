@@ -57,4 +57,14 @@ class User extends Authenticatable
       get: fn () => "{$this->first_name} {$this->last_name}"
     );
   }
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
+  public function isAdmin() : bool 
+  {
+    return $this->role_id == Role::ADMIN ? true : false;
+  }
 }

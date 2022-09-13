@@ -23,6 +23,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
   Route::get('', DashboardController::class)->name('dashboard');
   Route::resource('users', UserController::class);
   Route::resource('tickets', TicketController::class);
+  Route::get('tickets/{ticket}/close', [TicketController::class, 'close'])->name('tickets.close');
   Route::resource('tickets-types', TicketTypeController::class);
   Route::get('profile', [UserController::class, 'profile'])->name('profile');
 });

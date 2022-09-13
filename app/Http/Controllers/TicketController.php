@@ -49,5 +49,15 @@ class TicketController extends Controller
         return view('tickets.edit', compact('ticket'));
     }
 
+    public function close(Ticket $ticket)
+    {
+        $ticket->update([
+            'state' => Ticket::CLOSED,
+            'closed_at' => now(),
+        ]);
+        session()->flash('success', 'Ticket fermé avec succès');
+        return redirect()->route('tickets.show', $ticket);
+    }
+
 
 }

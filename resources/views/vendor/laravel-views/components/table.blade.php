@@ -13,7 +13,7 @@ props:
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-500">
 
-                    <thead class="bg-primary-900 uppercase text-xs">
+                    <thead class="bg-secondary-900 uppercase text-xs">
                         <tr>
                             @if ($this->hasBulkActions)
                                 <th class="px-4">

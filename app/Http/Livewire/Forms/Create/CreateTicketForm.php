@@ -4,13 +4,14 @@ namespace App\Http\Livewire\Forms\Create;
 
 use Livewire\Component;
 use App\Models\TicketType;
+use Illuminate\Support\Str;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Textarea;
 
 class CreateTicketForm extends Component implements HasForms
 {
@@ -36,7 +37,7 @@ class CreateTicketForm extends Component implements HasForms
           TextInput::make('state.title')
             ->required()
             ->label('Titre'),
-            Select::make('state.ticket_type_id')
+          Select::make('state.ticket_type_id')
             ->required()
             ->label('Type de ticket')
             ->options(TicketType::all()->pluck('name', 'id')),
@@ -58,7 +59,7 @@ class CreateTicketForm extends Component implements HasForms
             ])
             ->required()
             ->label('Description'),
-     
+
 
         ])
         ->columns(1),
@@ -69,7 +70,9 @@ class CreateTicketForm extends Component implements HasForms
   {
     $this->form->validate();
 
-    auth()->user()->tickets()->create($this->state);
+    auth()->user()->tickets()->create(array_merge($this->state, [
+      'identifier' => Str::random(6),
+    ]));
     session()->flash('success', 'Ticket créé avec succès');
     return redirect(route('tickets.index'));
   }

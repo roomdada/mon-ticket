@@ -88,15 +88,19 @@
                         <x-nav-link href="{{ route('dashboard') }}" icon="book" :active="request()->routeIs('dashboard')">
                             Tableau de bord
                         </x-nav-link>
-                        <x-nav-link href="{{ route('users.index') }}" icon="users" :active="request()->routeIs('users.*')">
-                          Utilisateurs
-                      </x-nav-link>
+                        @if (auth()->user()->isAdmin())
+                            <x-nav-link href="{{ route('users.index') }}" icon="users" :active="request()->routeIs('users.*')">
+                                Utilisateurs
+                            </x-nav-link>
+                        @endif
                         <x-nav-link href="{{ route('tickets.index') }}" icon="question" :active="request()->routeIs('tickets.*')">
                             Tickets
                         </x-nav-link>
-                        <x-nav-link href="{{ route('tickets-types.index') }}" icon="todo" :active="request()->routeIs('tickets-types.*')">
-                            Type de tickets
-                        </x-nav-link>
+                        @if (auth()->user()->isAdmin())
+                            <x-nav-link href="{{ route('tickets-types.index') }}" icon="todo" :active="request()->routeIs('tickets-types.*')">
+                                Type de tickets
+                            </x-nav-link>
+                        @endif
                     </nav>
                 </div>
             </div>

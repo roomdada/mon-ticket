@@ -20,7 +20,10 @@ class DashboardController extends Controller
     return view('dashboard', [
       'users' => User::count(),
       'tickets' => Ticket::count(),
-      'ticketTypes' => TicketType::count()
+      'ticketTypes' => TicketType::count(),
+      'openedTickets' => auth()->user()->tickets->where('state', Ticket::OPENED)->count(),
+      'closedTickets' => auth()->user()->tickets->where('state', Ticket::CLOSED)->count(),
+      'allTickets' => auth()->user()->tickets->count(),
     ]);
   }
 }
